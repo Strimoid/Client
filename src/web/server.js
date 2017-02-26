@@ -1,9 +1,32 @@
-import koa from 'koa'
+import _ from 'lodash'
+import Koa from 'koa'
+import webpackMiddleware from 'koa-webpack'
+import React from 'react'
+import webpackConfig from './../../webpack.config'
+import { renderToString } from 'react-dom/server'
+import { resolve } from 'path'
+import { readFileSync } from 'fs'
+import { StaticRouter } from 'react-router'
 
-const app = koa()
+import routes from './routes'
+import App from './containers/App'
 
-app.use(function *(){
-  this.body = 'Hello World'
+const app = new Koa()
+
+app.use(webpackMiddleware())
+
+app.use(async (ctx) => {
+  const context = {}
+  const html = renderToString(
+    <StaticRouter context={context} location={ctx.request.url}>
+      <App />
+    </StaticRouter>
+  )
+
+  const templatePath = resolve(__dirname, '../../web/index.html')
+  const template = _.template(readFileSync(templatePath, { encoding: 'utf8' }))
+
+  ctx.body = template({ html })
 })
 
 app.listen(3000)
