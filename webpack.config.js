@@ -6,8 +6,7 @@ module.exports = {
   entry: {
     app: [
       'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:8080',
-      'webpack/hot/only-dev-server',
+      'webpack-hot-middleware/client',
       './web/client.js',
     ],
   },
@@ -18,6 +17,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      config: resolve(__dirname, 'config.js')
+    }
   },
   context: resolve(__dirname, 'src'),
   devtool: 'inline-source-map',
@@ -49,6 +51,8 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.ProvidePlugin({
       React: 'react',
+      PropTypes: 'prop-types',
+      Config: ['config', 'default']
     }),
     new ExtractTextPlugin("[name].bundle.css"),
   ],

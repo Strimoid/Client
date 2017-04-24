@@ -1,13 +1,14 @@
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import Content from './Content'
 
 export default class ContentList extends Component {
   render() {
     return (
-      <div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gridGap: '15px' }}>
         {this.props.contents.map((content, index) =>
-          <Content key={index} content={content} />
+          <Content key={content.id} content={content} />
         )}
       </div>
     )

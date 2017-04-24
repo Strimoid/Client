@@ -1,9 +1,10 @@
 import axios from 'axios'
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import Content from '../web/components/contents/Content'
 
-export default class ContentContainer extends React.Component {
+export default class ContentContainer extends Component {
   constructor() {
     super()
     this.state = { content: null }
@@ -11,14 +12,16 @@ export default class ContentContainer extends React.Component {
 
   componentDidMount() {
     let id = this.props.match.params.id
-
-    axios.get(`https://cors-anywhere.herokuapp.com/https://strm.pl/api/contents/${id}`).then((response) => {
-      this.setState({content: response.data.data})
+    axios.get(`${Config.baseUrl}/contents/${id}`).then((response) => {
+      this.setState({content: response.data})
     })
   }
 
   render() {
-    //return <Content content={this.state.contents[0]} />
-    return null
+    if (!this.state.content) {
+      return null
+    }
+
+    return <Content content={this.state.content} />
   }
 }

@@ -1,9 +1,10 @@
 import axios from 'axios'
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import EntryList from '../web/components/entries/EntryList'
 
-export default class EntryListContainer extends React.Component {
+export default class EntryListContainer extends Component {
   constructor() {
     super()
     this.state = { entries: [] }

@@ -1,8 +1,9 @@
 import _ from 'lodash'
 import Koa from 'koa'
+import webpack from 'webpack'
+import webpackConfig from './../../webpack.config'
 import webpackMiddleware from 'koa-webpack'
 import React from 'react'
-import webpackConfig from './../../webpack.config'
 import { renderToString } from 'react-dom/server'
 import { resolve } from 'path'
 import { readFileSync } from 'fs'
@@ -13,7 +14,10 @@ import App from './containers/App'
 
 const app = new Koa()
 
-app.use(webpackMiddleware())
+const compiler = webpack(webpackConfig)
+app.use(webpackMiddleware({
+  compiler: compiler
+}))
 
 app.use(async (ctx) => {
   const context = {}

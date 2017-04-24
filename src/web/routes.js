@@ -8,7 +8,7 @@ import ContentContainer from '../containers/ContentContainer'
 
 export default (
   <div>
-  <Route path="/" component={ContentListContainer} />
-  <Route path="/c/:id" component={ContentContainer} />
+    <Route exact path="/" component={ContentListContainer} />
+    <Route path="/c/:id" component={ContentContainer} />
   </div>
 )

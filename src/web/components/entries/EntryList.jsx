@@ -1,8 +1,9 @@
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import Entry from './entry'
 
-export default class EntryList extends Component {
+export default class EntryList extends React.Component {
   render() {
     return (
       <div>
